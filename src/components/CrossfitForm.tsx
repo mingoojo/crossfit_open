@@ -3,6 +3,7 @@
 import { FormInput, WOD_CONFIGS, WodInput } from "@/types/crossfit"
 import styles from "./CrossfitForm.module.css"
 import { IMaskInput, IMask } from "react-imask"
+import { parseTime } from "@/lib/calcRank"
 
 interface Props {
   input : FormInput
@@ -58,7 +59,10 @@ export default function CrossfitForm({ input, onChange, onCalc, loading } : Prop
                   min={0}
                   max={cfg.maxReps}
                   value={wod.reps === 0 ? 0 : wod.reps || ""}
-                  onChange={(e) => setWod(key, { reps: Number(e.target.value) })}
+                  onChange={(e) => {
+                    const val = Math.min(Number(e.target.value), cfg.maxReps)
+                    setWod(key, { reps: val })
+                  }}
                   placeholder={`0 ~ ${cfg.maxReps}`}
                 />
               </div>
@@ -66,7 +70,10 @@ export default function CrossfitForm({ input, onChange, onCalc, loading } : Prop
               <div className={styles.field}>
                 <label className={styles.label}>
                   완주 시간
-                  {!isFinished && <span className={styles.labelSub}> (미완주)</span>}
+                  {isFinished
+                    ? <span className={styles.labelSub}> (최대 {timecapStr})</span>
+                    : <span className={styles.labelSub}> (타임캡 {timecapStr})</span>
+                  }
                 </label>
                 <IMaskInput
                   className={`${styles.input} ${!isFinished ? styles.inputDisabled : ""}`}
@@ -76,7 +83,16 @@ export default function CrossfitForm({ input, onChange, onCalc, loading } : Prop
                     s: { mask: IMask.MaskedRange, from: 0, to: 59, maxLength: 2 },
                   }}
                   value={isFinished ? wod.time : timecapStr}
-                  onAccept={(val : string) => setWod(key, { time: val })}
+                  onAccept={(val : string) => {
+                    const elapsed = parseTime(val)
+                    const timecapStr = `${Math.floor(cfg.timecap / 60)}:${String(cfg.timecap % 60).padStart(2, "0")}`
+                    // 타임캡 초과 시 타임캡으로 고정
+                    if (elapsed > cfg.timecap) {
+                      setWod(key, { time: timecapStr })
+                    } else {
+                      setWod(key, { time: val })
+                    }
+                  }}
                   placeholder="00:00"
                   disabled={!isFinished}
                   overwrite

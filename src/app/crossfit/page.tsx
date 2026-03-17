@@ -120,7 +120,7 @@ export default function CrossfitPage() {
       <aside className={styles.formPanel}>
         <div className={styles.formHeader}>
           <p className={styles.formSubtitle}>CrossFit Open 2026</p>
-          <h1 className={styles.formTitle}>카드 만들기</h1>
+          <h1 className={styles.formTitle}>내 기록 확인</h1>
         </div>
         <div className={styles.formScroll}>
           <CrossfitForm
