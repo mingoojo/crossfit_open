@@ -1,0 +1,39 @@
+{
+  "extends": "next/core-web-vitals",
+  "plugins": ["@typescript-eslint"],
+  "rules": {
+    "react/react-in-jsx-scope": "off",
+    "react/jsx-filename-extension": [1, { "extensions": [".ts", ".tsx"] }],
+    "linebreak-style": 0,
+    "indent": ["error", 2],
+    "no-trailing-spaces": "error",
+    "curly": "error",
+    "brace-style": "error",
+    "no-multi-spaces": "error",
+    "space-infix-ops": "error",
+    "space-unary-ops": "error",
+    "no-whitespace-before-property": "error",
+    "func-call-spacing": "error",
+    "space-before-blocks": "error",
+    "keyword-spacing": ["error", { "before": true, "after": true }],
+    "comma-spacing": ["error", { "before": false, "after": true }],
+    "comma-style": "off",
+    "comma-dangle": ["error", "always-multiline"],
+    "space-in-parens": ["error", "never"],
+    "block-spacing": "error",
+    "array-bracket-spacing": ["error", "never"],
+    "object-curly-spacing": ["error", "always"],
+    "key-spacing": ["error", { "mode": "strict" }],
+    "arrow-spacing": ["error", { "before": true, "after": true }],
+    "react-hooks/rules-of-hooks": "warn",
+    "no-unused-vars": "warn",
+    "quotes": ["warn", "double"],
+    "eqeqeq": "warn",
+    "no-delete-var": "warn",
+    "react/jsx-uses-vars": "warn",
+    "@typescript-eslint/type-annotation-spacing": ["warn", {
+      "before": true,
+      "after": true
+    }]
+  }
+}
