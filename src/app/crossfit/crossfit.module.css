@@ -1,0 +1,237 @@
+.page {
+  display: flex;
+  height: 100vh;
+  overflow: hidden;
+  background: #0a0a0a;
+}
+
+/* ── 왼쪽 폼 패널 ── */
+.formPanel {
+  width: 400px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  background: #0d0d0d;
+  border-right: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.formHeader {
+  padding: 28px 24px 20px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  flex-shrink: 0;
+}
+
+.formSubtitle {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 5px;
+  color: #ff4500;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+
+.formTitle {
+  font-family: "Bebas Neue", sans-serif;
+  font-size: 34px;
+  font-weight: 400;
+  color: #fff;
+  letter-spacing: 2px;
+}
+
+.formScroll {
+  flex: 1;
+  overflow-y: auto;
+  padding: 24px 24px 48px;
+  scrollbar-width: thin;
+  scrollbar-color: #222 transparent;
+}
+
+.formScroll::-webkit-scrollbar { width: 4px; }
+.formScroll::-webkit-scrollbar-thumb { background: #222; border-radius: 2px; }
+
+/* ── 오른쪽 프리뷰 패널 ── */
+.previewPanel {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background: #080808;
+}
+
+.previewMeta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 20px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  flex-shrink: 0;
+  gap: 12px;
+}
+
+/* ── 스타일 토글 ── */
+.variantToggle {
+  display: flex;
+  gap: 6px;
+}
+
+.variantBtn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  border-radius: 3px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: transparent;
+  color: #444;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  transition: all 0.15s;
+  cursor: pointer;
+}
+
+.variantBtn:hover {
+  border-color: var(--v-color);
+  color: #888;
+}
+
+.variantBtnActive {
+  border-color: var(--v-color) !important;
+  color: var(--v-color) !important;
+  background: color-mix(in srgb, var(--v-color) 8%, transparent);
+}
+
+.variantDot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--v-color);
+  flex-shrink: 0;
+}
+
+/* ── 저장 버튼 ── */
+.saveBtn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 20px;
+  background: linear-gradient(135deg, #ff4500, #ff8c00);
+  border: none;
+  border-radius: 4px;
+  color: #fff;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  flex-shrink: 0;
+  transition: opacity 0.2s, transform 0.1s;
+}
+
+.saveBtn:hover { opacity: 0.85; transform: translateY(-1px); }
+.saveBtn:active { transform: translateY(0); }
+.saveBtnLoading { opacity: 0.5; pointer-events: none; }
+
+/* ── 카드 래퍼 ── */
+.cardWrapper {
+  flex: 1;
+  overflow: hidden;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 24px;
+}
+
+/* ── 빈 상태 ── */
+.emptyState {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+}
+
+.emptyIcon { font-size: 48px; opacity: 0.15; }
+
+.emptyText {
+  font-size: 13px;
+  letter-spacing: 1px;
+  text-align: center;
+  line-height: 1.8;
+  color: #2a2a2a;
+}
+
+/* ── 에러 ── */
+.errorMsg {
+  margin-top: 16px;
+  padding: 12px 14px;
+  background: rgba(255, 69, 0, 0.08);
+  border: 1px solid rgba(255, 69, 0, 0.2);
+  border-radius: 4px;
+  font-size: 12px;
+  color: #ff6a3a;
+  line-height: 1.6;
+}
+
+/* ── 사진 업로드 바 (variant 5 전용) ── */
+.photoUploadBar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 20px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  background: rgba(224, 201, 127, 0.04);
+  cursor: pointer;
+  transition: background 0.15s;
+  flex-shrink: 0;
+}
+
+.photoUploadBar:hover {
+  background: rgba(224, 201, 127, 0.08);
+}
+
+.photoUploadBarDone {
+  background: rgba(224, 201, 127, 0.06);
+}
+
+.photoThumb {
+  width: 36px;
+  height: 36px;
+  border-radius: 3px;
+  background-size: cover;
+  background-position: center;
+  flex-shrink: 0;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.photoUploadText {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  color: #666;
+  text-transform: uppercase;
+  flex: 1;
+}
+
+.photoRemoveBtn {
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 3px;
+  color: #444;
+  font-size: 11px;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: all 0.15s;
+}
+
+.photoRemoveBtn:hover {
+  border-color: rgba(255, 100, 100, 0.4);
+  color: #ff6464;
+  background: rgba(255, 100, 100, 0.08);
+}
