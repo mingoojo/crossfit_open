@@ -30,8 +30,7 @@
     "react-helmet": "^6.1.0",
     "react-highcharts": "^16.1.0",
     "styled-components": "^6.1.6",
-    "styled-reset": "^4.5.2",
-    "webpack": "^4.47.0"
+    "styled-reset": "^4.5.2"
   },
   "devDependencies": {
     "@babel/core": "^7.25.2",
