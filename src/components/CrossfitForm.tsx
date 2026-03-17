@@ -45,7 +45,7 @@ export default function CrossfitForm({ input, onChange, onCalc, loading } : Prop
         return (
           <div key={cfg.id} className={styles.section}>
             <div className={styles.sectionTitle}>{cfg.id}</div>
-            <div className={styles.eventMeta}>{cfg.desc}</div>
+            <div className={styles.eventMeta}>{cfg.name}</div>
 
             <div className={styles.row}>
               <div className={styles.field}>
