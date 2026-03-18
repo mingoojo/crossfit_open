@@ -44,12 +44,17 @@ export default function CrossfitPage() {
     setError(null)
     try {
       const athletes = await loadAthletes(formInput.gender)
-      const { cardData } = calcRank(athletes, formInput)
+      console.log(athletes)
+      const { cardData, debugInfo } = calcRank(athletes, formInput) // ← debugInfo 추가
+
+      // 콘솔에 API 형태로 출력
+      console.log("=== 내 기록 디버그 ===", JSON.stringify(debugInfo, null, 2))
+
       setCardData(cardData)
-      setMobileTab("preview") // 모바일: 계산 후 자동으로 미리보기 탭 이동
+      setMobileTab("preview")
     } catch (err) {
       console.error(err)
-      setError("athletes.json 로드 실패. public/data/athletes.json 을 확인해주세요.")
+      setError("athletes.json 로드 실패.")
     } finally {
       setLoading(false)
     }
@@ -206,7 +211,7 @@ export default function CrossfitPage() {
       <aside className={styles.formPanel}>
         <div className={styles.formHeader}>
           <p className={styles.formSubtitle}>CrossFit Open 2026</p>
-          <h1 className={styles.formTitle}>카드 만들기</h1>
+          <h1 className={styles.formTitle}>기록 확인</h1>
         </div>
         <div className={styles.formScroll}>
           <CrossfitForm input={formInput} onChange={setFormInput}
@@ -290,7 +295,7 @@ export default function CrossfitPage() {
           <div className={styles.mobileFormPanel}>
             <div className={styles.mobileFormHeader}>
               <p className={styles.mobileFormSubtitle}>CrossFit Open 2026</p>
-              <h1 className={styles.mobileFormTitle}>카드 만들기</h1>
+              <h1 className={styles.mobileFormTitle}>기록 확인</h1>
             </div>
             <div className={styles.mobileFormScroll}>
               <CrossfitForm input={formInput} onChange={setFormInput}

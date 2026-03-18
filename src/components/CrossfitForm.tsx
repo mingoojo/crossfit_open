@@ -2,6 +2,8 @@
 
 import { FormInput, WOD_CONFIGS, WodInput } from "@/types/crossfit"
 import styles from "./CrossfitForm.module.css"
+import { IMaskInput, IMask } from "react-imask"
+import { parseTime } from "@/lib/calcRank"
 
 interface Props {
   input : FormInput
@@ -69,6 +71,7 @@ export default function CrossfitForm({ input, onChange, onCalc, loading } : Prop
             <div className={styles.eventMeta}>{cfg.name}</div>
 
             <div className={styles.row}>
+              {/* Reps */}
               <div className={styles.field}>
                 <label className={styles.label}>
                   Reps <span className={styles.labelSub}>(최대 {cfg.maxReps})</span>
@@ -78,32 +81,56 @@ export default function CrossfitForm({ input, onChange, onCalc, loading } : Prop
                   type="number"
                   min={0}
                   max={cfg.maxReps}
-                  value={wod.reps || ""}
-                  onChange={(e) => setWod(key, { reps: Number(e.target.value) })}
+                  value={wod.reps === 0 ? 0 : wod.reps || ""}
+                  onChange={(e) => {
+                    const val = Math.min(Number(e.target.value), cfg.maxReps)
+                    setWod(key, { reps: val })
+                  }}
                   placeholder={`0 ~ ${cfg.maxReps}`}
                 />
               </div>
 
+              {/* Tiebreak 시간 — 완주/미완주 모두 입력 가능 */}
               <div className={styles.field}>
                 <label className={styles.label}>
-                  완주 시간
-                  {!isFinished && <span className={styles.labelSub}> (미완주)</span>}
+                  {isFinished ? (
+                    <>완주 시간 <span className={styles.labelSub}>(최대 {timecapStr})</span></>
+                  ) : (
+                    <>타이브레이크 </>
+                  )}
                 </label>
-                <input
-                  className={`${styles.input} ${!isFinished ? styles.inputDisabled : ""}`}
-                  value={isFinished ? wod.time : timecapStr}
-                  onChange={(e) => setWod(key, { time: e.target.value })}
-                  placeholder="11:30"
-                  disabled={!isFinished}
+                <IMaskInput
+                  className={styles.input}
+                  mask="m`:`s"
+                  blocks={{
+                    m: { mask: IMask.MaskedRange, from: 0, to: 59, maxLength: 2 },
+                    s: { mask: IMask.MaskedRange, from: 0, to: 59, maxLength: 2 },
+                  }}
+                  value={wod.time}
+                  onAccept={(val : string) => {
+                    const elapsed = parseTime(val)
+                    if (elapsed > cfg.timecap) {
+                      setWod(key, { time: timecapStr })
+                    } else {
+                      setWod(key, { time: val })
+                    }
+                  }}
+                  placeholder={isFinished ? "MM:SS" : "MM:SS (선택)"}
+                  overwrite
                 />
               </div>
             </div>
 
+            {/* 상태 + tiebreak 안내 */}
             <div className={styles.wodStatus}>
               {isFinished ? (
-                <span className={styles.statusDone}>✓ 완주 · 시간 입력 필요</span>
+                <span className={styles.statusDone}>✓ 완주 · 완주 시간 입력 필요</span>
               ) : wod.reps > 0 ? (
-                <span className={styles.statusPartial}>타임캡 · {wod.reps} reps</span>
+                <div style={{ display: "flex", flexDirection: "column", gap: 2 }}>
+                  <span className={styles.statusPartial}>
+                    타임캡 · {wod.reps} reps
+                  </span>
+                </div>
               ) : (
                 <span className={styles.statusEmpty}>미입력</span>
               )}
