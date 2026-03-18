@@ -80,10 +80,11 @@ export function calcRank(athletes : Athlete[], input : FormInput) : RankResult {
   }
 }
 
-export async function loadAthletes() : Promise<Athlete[]> {
-  const res = await fetch("/data/athletes.json")
+export async function loadAthletes(gender : "M" | "W" = "M") : Promise<Athlete[]> {
+  const file = gender === "W" ? "/data/athletes2.json" : "/data/athletes.json"
+  const res = await fetch(file, { cache: "no-store" }) // ← 이거 추가
   if (!res.ok) {
-    throw new Error("athletes.json 로드 실패")
+    throw new Error(`${file} 로드 실패`)
   }
   return res.json()
 }

@@ -226,11 +226,20 @@ const CrossfitCard = forwardRef<HTMLDivElement, Props>(({ data, variant = 1, bgI
               lineHeight: 0.82, letterSpacing: -6 })}>
               {overallPct}
             </div>
-            <div style={css({ fontFamily: "'Bebas Neue',sans-serif",
-              fontSize: 100, color: t.pct,
-              lineHeight: 0.82, opacity: 0.55,
-              paddingBottom: 16 })}>
-              %
+            <div style={css({ display: "flex", alignItems: "flex-end", gap: 6, paddingBottom: 16 })}>
+              <div style={css({ fontFamily: "'Bebas Neue',sans-serif",
+                fontSize: 100, color: t.pct,
+                lineHeight: 0.82, opacity: 0.55 })}>
+                  %
+              </div>
+              <div style={css({ fontFamily: "'Barlow Condensed',sans-serif",
+                marginLeft: 10,
+                fontSize: 60, fontWeight: 700, letterSpacing: 3,
+                color: "#ff4500", opacity: 0.9,
+                border: "1px solid #ff4500", borderRadius: 4,
+                padding: "2px 10px", lineHeight: 1.4 })}>
+                  Rx&apos;d
+              </div>
             </div>
           </div>
         </div>

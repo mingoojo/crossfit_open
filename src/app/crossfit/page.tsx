@@ -43,7 +43,7 @@ export default function CrossfitPage() {
     setLoading(true)
     setError(null)
     try {
-      const athletes = await loadAthletes()
+      const athletes = await loadAthletes(formInput.gender)
       const { cardData } = calcRank(athletes, formInput)
       setCardData(cardData)
       setMobileTab("preview") // 모바일: 계산 후 자동으로 미리보기 탭 이동

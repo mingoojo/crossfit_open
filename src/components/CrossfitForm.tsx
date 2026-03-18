@@ -2,8 +2,6 @@
 
 import { FormInput, WOD_CONFIGS, WodInput } from "@/types/crossfit"
 import styles from "./CrossfitForm.module.css"
-import { IMaskInput, IMask } from "react-imask"
-import { parseTime } from "@/lib/calcRank"
 
 interface Props {
   input : FormInput
@@ -25,6 +23,28 @@ export default function CrossfitForm({ input, onChange, onCalc, loading } : Prop
       {/* 기본 정보 */}
       <div className={styles.section}>
         <div className={styles.sectionTitle}>기본 정보</div>
+
+        {/* 성별 토글 */}
+        <div className={styles.field}>
+          <label className={styles.label}>성별</label>
+          <div className={styles.genderToggle}>
+            <button
+              className={`${styles.genderBtn} ${input.gender === "M" ? styles.genderBtnActive : ""}`}
+              onClick={() => set({ gender: "M" })}
+              type="button"
+            >
+              🏋️ 남성 (Men)
+            </button>
+            <button
+              className={`${styles.genderBtn} ${input.gender === "W" ? styles.genderBtnActive : ""}`}
+              onClick={() => set({ gender: "W" })}
+              type="button"
+            >
+              🏋️ 여성 (Women)
+            </button>
+          </div>
+        </div>
+
         <div className={styles.field}>
           <label className={styles.label}>이름 / 닉네임</label>
           <input
@@ -58,11 +78,8 @@ export default function CrossfitForm({ input, onChange, onCalc, loading } : Prop
                   type="number"
                   min={0}
                   max={cfg.maxReps}
-                  value={wod.reps === 0 ? 0 : wod.reps || ""}
-                  onChange={(e) => {
-                    const val = Math.min(Number(e.target.value), cfg.maxReps)
-                    setWod(key, { reps: val })
-                  }}
+                  value={wod.reps || ""}
+                  onChange={(e) => setWod(key, { reps: Number(e.target.value) })}
                   placeholder={`0 ~ ${cfg.maxReps}`}
                 />
               </div>
@@ -70,32 +87,14 @@ export default function CrossfitForm({ input, onChange, onCalc, loading } : Prop
               <div className={styles.field}>
                 <label className={styles.label}>
                   완주 시간
-                  {isFinished
-                    ? <span className={styles.labelSub}> (최대 {timecapStr})</span>
-                    : <span className={styles.labelSub}> (타임캡 {timecapStr})</span>
-                  }
+                  {!isFinished && <span className={styles.labelSub}> (미완주)</span>}
                 </label>
-                <IMaskInput
+                <input
                   className={`${styles.input} ${!isFinished ? styles.inputDisabled : ""}`}
-                  mask="m`:`s"
-                  blocks={{
-                    m: { mask: IMask.MaskedRange, from: 0, to: 59, maxLength: 2 },
-                    s: { mask: IMask.MaskedRange, from: 0, to: 59, maxLength: 2 },
-                  }}
                   value={isFinished ? wod.time : timecapStr}
-                  onAccept={(val : string) => {
-                    const elapsed = parseTime(val)
-                    const timecapStr = `${Math.floor(cfg.timecap / 60)}:${String(cfg.timecap % 60).padStart(2, "0")}`
-                    // 타임캡 초과 시 타임캡으로 고정
-                    if (elapsed > cfg.timecap) {
-                      setWod(key, { time: timecapStr })
-                    } else {
-                      setWod(key, { time: val })
-                    }
-                  }}
-                  placeholder="00:00"
+                  onChange={(e) => setWod(key, { time: e.target.value })}
+                  placeholder="11:30"
                   disabled={!isFinished}
-                  overwrite
                 />
               </div>
             </div>

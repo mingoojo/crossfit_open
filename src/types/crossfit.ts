@@ -1,11 +1,11 @@
 export interface EventData {
-  id : string // "26.1"
-  name : string // "Wall-balls & Box Jumps"
-  rank : number // 내 순위
-  pct : number // 상위 X%
-  myReps : number // 내가 한 reps
-  myTime : string // 완주 시간 ("11:30") — maxReps 달성 시만 의미 있음
-  isFinished : boolean // maxReps 달성 여부
+  id : string
+  name : string
+  rank : number
+  pct : number
+  myReps : number
+  myTime : string
+  isFinished : boolean
 }
 
 export interface CrossfitData {
@@ -16,24 +16,25 @@ export interface CrossfitData {
   events : EventData[]
 }
 
-// ── 폼 입력 ──────────────────────────────
 export interface WodInput {
   reps : number
-  time : string // "11:30"
+  time : string
 }
+
+export type Gender = "M" | "W"
 
 export interface FormInput {
   handle : string
+  gender : Gender
   wod1 : WodInput
   wod2 : WodInput
   wod3 : WodInput
 }
 
-// ── WOD 설정 ─────────────────────────────
 export interface WodConfig {
   ordinal : number
   id : string
-  name : string // 카드에 표시할 운동 이름
+  name : string
   timecap : number
   maxReps : number
 }
@@ -64,12 +65,12 @@ export const WOD_CONFIGS : WodConfig[] = [
 
 export const DEFAULT_FORM_INPUT : FormInput = {
   handle: "",
+  gender: "M",
   wod1: { reps: 0, time: "" },
   wod2: { reps: 0, time: "" },
   wod3: { reps: 0, time: "" },
 }
 
-// ── athletes.json 타입 ────────────────────
 export interface AthleteScore {
   ordinal : number
   rank : string
