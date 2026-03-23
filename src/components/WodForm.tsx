@@ -1,7 +1,7 @@
 "use client"
 
 import { WodFormInput, WodLevel, WodRecordType } from "@/types/wod"
-import styles from "./WodForm.module.css"
+import styles from "./Wodform.module.css"
 
 interface Props {
   input : WodFormInput
