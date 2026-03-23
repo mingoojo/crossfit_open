@@ -1,25 +1,25 @@
 {
   "2026-03-23": {
     "name": "MON",
-    "category": "AMRAM",
+    "category": "AMRAP 20min",
     "timecap": 1200,
-    "movements": "8 toes-to-bars\n10 single-DB hang clean and jerks (35/50 lb)\n12/14-cal row\nsubPerform 5 clean and jerks with one arm, and then switch."
+    "movements": "8 Toes-to-bars\n10 Single-DB Hang Clean & Jerks (35/50 lb)\n12/14-cal Row\nsubPerform 5 clean and jerks with one arm, then switch."
   },
   "2026-03-24": {
-    "name": "Tue",
+    "name": "TUE",
     "category": "For Time",
-    "movements": "50/60-cal bike\nDouble-DB walking lunges (150 ft) (35/50 lb)\n20 wall walks\nsubSplit work as needed; 1 partner works at a time.\nsub2 rounds for time with a partner"
+    "movements": "50/60-cal Bike\nDouble-DB Walking Lunges 150ft (35/50 lb)\n20 Wall Walks\nsubSplit work as needed; 1 partner works at a time.\nsub2 rounds for time with a partner"
   },
   "2026-03-26": {
-    "name": "Thu",
+    "name": "THU",
     "category": "For Time",
-    "timecap": 600,
-    "movements": "21-15-9\nDeadlift 102kg\nHandstand Push-ups"
+    "timecap": 1500,
+    "movements": "Every 5:00 for 25:00:\n400m Run\n15 Overhead Squats (65/95 lb)\nsubRest the remainder of the 5:00"
   },
   "2026-03-27": {
-    "name": "Fri",
+    "name": "FRI",
     "category": "For Time",
-    "timecap": 900,
-    "movements": "3 Rounds\n400m Run\n21 KB Swings 24kg\n12 Pull-ups"
+    "timecap": 1680,
+    "movements": "10 Rounds\n200m Run\n2 Wall Walks"
   }
 }

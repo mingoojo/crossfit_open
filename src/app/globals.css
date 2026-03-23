@@ -52,3 +52,12 @@ input[type="range"]::-moz-range-thumb {
   border: 2px solid #ff4500;
   cursor: pointer;
 }
+
+@keyframes pulseBar {
+  0%, 100% { border-color: rgba(0, 200, 255, 0.15); background: rgba(0, 200, 255, 0.03); }
+  50%       { border-color: rgba(0, 200, 255, 0.5);  background: rgba(0, 200, 255, 0.08); }
+}
+
+.photoBarPulse {
+  animation: pulseBar 2s ease-in-out infinite;
+}

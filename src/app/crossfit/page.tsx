@@ -82,7 +82,7 @@ export default function CrossfitPage() {
   const [programWod, setProgramWod] = useState<ProgramWod | null>(null)
   const [programReady, setProgramReady] = useState(false)
   const [programBgImage, setProgramBgImage] = useState<string | null>(null)
-  const [logoVariant, setLogoVariant] = useState<"dark" | "white">("dark")
+  const [logoVariant, setLogoVariant] = useState<"dark" | "white">("white")
 
   // ── 공통 ──
   const [saving, setSaving] = useState(false)
@@ -206,7 +206,7 @@ export default function CrossfitPage() {
       const wrapper = wRef.current
       const prev = wrapper.style.transform; const prevM = wrapper.style.marginBottom
       wrapper.style.transform = "none"; wrapper.style.marginBottom = "0"
-      const canvas = await html2canvas(cRef.current, { width: 1080, height: 1920, scale: 1, useCORS: true, allowTaint: true, backgroundColor: "#0a0a0a", logging: false })
+      const canvas = await html2canvas(cRef.current, { width: 1080, height: 1920, scale: 4, useCORS: true, allowTaint: true, backgroundColor: "#0a0a0a", logging: false })
       wrapper.style.transform = prev; wrapper.style.marginBottom = prevM
       const link = document.createElement("a"); link.download = filename; link.href = canvas.toDataURL("image/png"); link.click()
     } catch (err) {
@@ -230,26 +230,25 @@ export default function CrossfitPage() {
       <div className={styles.selectPage}>
         <CropModal />
         <div className={styles.selectHeader}>
-          <div className={styles.selectTitle}>CrossFit Card Creator</div>
-          <div className={styles.selectSub}>어떤 카드를 만들까요?</div>
+          <div className={styles.selectTitle}>없다. 앱이름 ㅠ</div>
         </div>
         <div className={styles.selectCards}>
           <button className={styles.selectCard} onClick={() => setMode("open")}>
             <div className={styles.selectCardBadge} style={{ background: "rgba(255,69,0,0.15)", color: "#ff4500", borderColor: "rgba(255,69,0,0.3)" }}>2026 Open</div>
-            <div className={styles.selectCardTitle}>Open 기록 카드</div>
-            <div className={styles.selectCardDesc}>CrossFit Open 2026 성적을<br />전체 순위와 함께 카드로</div>
+            <div className={styles.selectCardTitle}>2026 Open <br /> 기록 확인</div>
+            <div className={styles.selectCardDesc}>CrossFit Open 2026 <br /> 성적을 확인</div>
             <div className={styles.selectCardArrow}>→</div>
           </button>
           <button className={styles.selectCard} onClick={() => setMode("wod")}>
             <div className={styles.selectCardBadge} style={{ background: "rgba(0,200,255,0.1)", color: "#00c8ff", borderColor: "rgba(0,200,255,0.3)" }}>Daily WOD</div>
-            <div className={styles.selectCardTitle}>오늘의 WOD 카드</div>
-            <div className={styles.selectCardDesc}>오늘 한 운동과 기록을<br />나만의 카드로</div>
+            <div className={styles.selectCardTitle}>오늘의 WOD 기록하기</div>
+            <div className={styles.selectCardDesc}>오늘 한 운동 기록</div>
             <div className={styles.selectCardArrow}>→</div>
           </button>
           <button className={styles.selectCard} onClick={() => setMode("program")}>
             <div className={styles.selectCardBadge} style={{ background: "rgba(0,230,118,0.1)", color: "#00e676", borderColor: "rgba(0,230,118,0.3)" }}>Weekly</div>
-            <div className={styles.selectCardTitle}>주간 프로그램 카드</div>
-            <div className={styles.selectCardDesc}>날짜 선택하면 오늘 운동이 자동으로<br />내 기록만 입력하면 카드 완성</div>
+            <div className={styles.selectCardTitle}>CROSSFIT FAIRY </div>
+            <div className={styles.selectCardDesc}>박스 운동 일정 확인 및 <br />내 기록</div>
             <div className={styles.selectCardArrow}>→</div>
           </button>
         </div>
@@ -271,7 +270,7 @@ export default function CrossfitPage() {
         <aside className={styles.formPanel}>
           <div className={styles.formHeader}>
             <p className={styles.formSubtitle}>Daily WOD</p>
-            <h1 className={styles.formTitle}>카드 만들기</h1>
+            <h1 className={styles.formTitle}>오늘운동 기록하기</h1>
           </div>
           <div className={styles.formScroll}>
             <WodForm input={wodInput} onChange={setWodInput} onCalc={handleWodCalc} />
@@ -284,10 +283,6 @@ export default function CrossfitPage() {
             {wodBgImage ? (<><div className={styles.photoThumb} style={{ backgroundImage: `url(${wodBgImage})` }} /><span className={styles.photoUploadText}>사진 변경</span><button className={styles.photoRemoveBtn} onClick={(e) => {
               e.stopPropagation(); setWodBgImage(null)
             }}>✕</button></>) : (<span className={styles.photoUploadText}>📷 배경 사진 업로드 (클릭 또는 드래그)</span>)}
-          </div>
-          <div className={styles.previewMeta}>
-            {wodReady && <button className={`${styles.saveBtn} ${saving ? styles.saveBtnLoading : ""}`} onClick={() => handleSave(wodCardRef, wodWrapperRef2, `wod_${wodInput.date}.png`)} disabled={saving}><SaveIcon />{saving ? "저장 중..." : "이미지 저장"}</button>}
-            <FontSizeSlider value={movementFontSize} onChange={setMovementFontSize} />
           </div>
           <div className={styles.previewMeta}>
             {wodReady && <button className={`${styles.saveBtn} ${saving ? styles.saveBtnLoading : ""}`} onClick={() => handleSave(wodCardRef, wodWrapperRef2, `wod_${wodInput.date}.png`)} disabled={saving}><SaveIcon />{saving ? "저장 중..." : "이미지 저장"}</button>}
@@ -311,7 +306,7 @@ export default function CrossfitPage() {
         <div className={styles.mobileTabContent}>
           {mobileTab === "form" && (
             <div className={styles.mobileFormPanel}>
-              <div className={styles.mobileFormHeader}><p className={styles.mobileFormSubtitle}>Daily WOD</p><h1 className={styles.mobileFormTitle}>카드 만들기</h1></div>
+              <div className={styles.mobileFormHeader}><p className={styles.mobileFormSubtitle}>Daily WOD</p><h1 className={styles.mobileFormTitle}>오늘운동 기록하기</h1></div>
               <div className={styles.mobileFormScroll}><WodForm input={wodInput} onChange={setWodInput} onCalc={handleWodCalc} hideCalcBtn /></div>
             </div>
           )}
@@ -356,7 +351,7 @@ export default function CrossfitPage() {
 
         <aside className={styles.formPanel}>
           <div className={styles.formHeader}>
-            <p className={styles.formSubtitle}>Weekly Program</p>
+            <p className={styles.formSubtitle}>CROSSFIT FAIRY</p>
             <h1 className={styles.formTitle}>운동 기록</h1>
           </div>
           <div className={styles.formScroll}>
@@ -365,7 +360,12 @@ export default function CrossfitPage() {
         </aside>
 
         <main className={styles.previewPanel}>
-          <div className={styles.wodPhotoBar} onDragOver={(e) => e.preventDefault()} onDrop={programPhoto.onDrop} onClick={() => programFileInputRef.current?.click()}>
+          <div
+            className={`${styles.wodPhotoBar} ${!programBgImage ? "photoBarPulse" : ""}`}
+            onDragOver={(e) => e.preventDefault()}
+            onDrop={programPhoto.onDrop}
+            onClick={() => programFileInputRef.current?.click()}
+          >
             <input ref={programFileInputRef} type="file" accept="image/*" style={{ display: "none" }} onChange={programPhoto.onUpload} />
             {programBgImage ? (<><div className={styles.photoThumb} style={{ backgroundImage: `url(${programBgImage})` }} /><span className={styles.photoUploadText}>사진 변경</span><button className={styles.photoRemoveBtn} onClick={(e) => {
               e.stopPropagation(); setProgramBgImage(null)
@@ -415,7 +415,7 @@ export default function CrossfitPage() {
             {programReady && programWod ? (
               <div ref={programWrapperRef2} style={{ transformOrigin: "top center", transform: `scale(${programScale})`, marginBottom: `${1920 * (programScale - 1)}px` }}>
                 <ProgramCard
-                  ref={programMobileCardRef}
+                  ref={programCardRef}
                   input={programInput}
                   wod={programWod}
                   bgImage={programBgImage ?? undefined}
@@ -437,13 +437,18 @@ export default function CrossfitPage() {
         <div className={styles.mobileTabContent}>
           {mobileTab === "form" && (
             <div className={styles.mobileFormPanel}>
-              <div className={styles.mobileFormHeader}><p className={styles.mobileFormSubtitle}>Weekly Program</p><h1 className={styles.mobileFormTitle}>카드 만들기</h1></div>
+              <div className={styles.mobileFormHeader}><p className={styles.mobileFormSubtitle}>CROSSFIT FAIRY</p><h1 className={styles.mobileFormTitle}>카드 만들기</h1></div>
               <div className={styles.mobileFormScroll}><ProgramForm input={programInput} onChange={setProgramInput} onCalc={handleProgramCalc} hideCalcBtn onWodChange={setCurrentProgramWod} /></div>
             </div>
           )}
           {mobileTab === "preview" && (
             <div className={styles.mobilePreviewPanel}>
-              <div className={styles.mobilePhotoBar} onDragOver={(e) => e.preventDefault()} onDrop={programPhoto.onDrop} onClick={() => programFileInputRef.current?.click()}>
+              <div
+                className={`${styles.mobilePhotoBar} ${!programBgImage ? "photoBarPulse" : ""}`}
+                onDragOver={(e) => e.preventDefault()}
+                onDrop={programPhoto.onDrop}
+                onClick={() => programFileInputRef.current?.click()}
+              >
                 {programBgImage ? <span className={styles.photoUploadText}>사진 변경</span> : <span className={styles.photoUploadText}>📷 배경 사진 업로드</span>}
               </div>
               <div style={{ padding: "8px 16px", display: "flex", justifyContent: "space-between" }}>
@@ -527,7 +532,7 @@ export default function CrossfitPage() {
       <aside className={styles.formPanel}>
         <div className={styles.formHeader}>
           <p className={styles.formSubtitle}>CrossFit Open 2026</p>
-          <h1 className={styles.formTitle}>기록 확인</h1>
+          <h1 className={styles.formTitle}>2026 OPEN 기록 확인</h1>
         </div>
         <div className={styles.formScroll}>
           <CrossfitForm input={formInput} onChange={setFormInput} onCalc={handleCalc} loading={loading} />
@@ -574,7 +579,8 @@ export default function CrossfitPage() {
       <div className={styles.mobileTabContent}>
         {mobileTab === "form" && (
           <div className={styles.mobileFormPanel}>
-            <div className={styles.mobileFormHeader}><p className={styles.mobileFormSubtitle}>CrossFit Open 2026</p><h1 className={styles.mobileFormTitle}>기록 확인</h1></div>
+            <div className={styles.mobileFormHeader}><p className={styles.mobileFormSubtitle}>CrossFit Open 2026</p><h1 className={styles.mobileFormTitle}>
+              2026 OPEN 기록 확인</h1></div>
             <div className={styles.mobileFormScroll}>
               <CrossfitForm input={formInput} onChange={setFormInput} onCalc={handleCalc} loading={loading} />
               {error && <p className={styles.errorMsg}>{error}</p>}

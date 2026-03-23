@@ -5,14 +5,12 @@ import ReactCrop, { Crop, PixelCrop, centerCrop, makeAspectCrop } from "react-im
 import "react-image-crop/dist/ReactCrop.css"
 
 interface Props {
-  src : string // blob URL
+  src : string
   onComplete : (croppedUrl : string) => void
   onCancel : () => void
 }
 
-// 카드 비율 9:16 (1080x1920)
 const ASPECT = 9 / 16
-// 최소 크롭 크기 (원본 이미지 기준 px)
 const MIN_CROP_PX = 200
 
 function centerAspectCrop(mediaWidth : number, mediaHeight : number, aspect : number) : Crop {
@@ -39,10 +37,10 @@ export default function ImageCropModal({ src, onComplete, onCancel } : Props) {
       return
     }
 
-    const canvas = document.createElement("canvas")
     const scaleX = image.naturalWidth / image.width
     const scaleY = image.naturalHeight / image.height
 
+    const canvas = document.createElement("canvas")
     canvas.width = completedCrop.width * scaleX
     canvas.height = completedCrop.height * scaleY
 
@@ -50,6 +48,9 @@ export default function ImageCropModal({ src, onComplete, onCancel } : Props) {
     if (!ctx) {
       return
     }
+
+    ctx.imageSmoothingEnabled = true
+    ctx.imageSmoothingQuality = "high"
 
     ctx.drawImage(
       image,
@@ -66,20 +67,19 @@ export default function ImageCropModal({ src, onComplete, onCancel } : Props) {
       if (!blob) {
         return
       }
-      const url = URL.createObjectURL(blob)
-      onComplete(url)
-    }, "image/jpeg", 0.95)
+      onComplete(URL.createObjectURL(blob))
+    }, "image/png")
   }, [completedCrop, onComplete])
 
   return (
     <div style={{
       position: "fixed", inset: 0, zIndex: 1000,
-      background: "rgba(0,0,0,0.85)",
+      background: "rgba(0,0,0,0.9)",
       display: "flex", flexDirection: "column",
       alignItems: "center", justifyContent: "center",
       gap: 20, padding: 24,
     }}>
-      {/* 제목 */}
+
       <div style={{
         fontFamily: "'Barlow Condensed', sans-serif",
         fontSize: 16, fontWeight: 700, letterSpacing: 4,
@@ -88,7 +88,6 @@ export default function ImageCropModal({ src, onComplete, onCancel } : Props) {
         배경 영역 선택
       </div>
 
-      {/* 크롭 영역 */}
       <div style={{
         maxWidth: "min(480px, 90vw)",
         maxHeight: "70vh",
@@ -115,12 +114,10 @@ export default function ImageCropModal({ src, onComplete, onCancel } : Props) {
         </ReactCrop>
       </div>
 
-      {/* 안내 */}
       <div style={{ fontSize: 11, color: "#444", letterSpacing: 2, textAlign: "center" }}>
         드래그로 영역 선택 · 비율 9:16 고정
       </div>
 
-      {/* 버튼 */}
       <div style={{ display: "flex", gap: 12 }}>
         <button
           onClick={onCancel}
