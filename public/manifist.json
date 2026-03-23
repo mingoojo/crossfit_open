@@ -1,0 +1,22 @@
+{
+  "name": "CrossFit Open 2026",
+  "short_name": "CF Open",
+  "description": "CrossFit Open 기록 카드 생성기",
+  "start_url": "/crossfit",
+  "display": "standalone",
+  "background_color": "#0a0a0a",
+  "theme_color": "#ff4500",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "/images/OpenLogo_white.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/images/OpenLogo_white.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

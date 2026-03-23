@@ -1,0 +1,25 @@
+{
+  "2026-03-23": {
+    "name": "MON",
+    "category": "AMRAM",
+    "timecap": 1200,
+    "movements": "8 toes-to-bars\n10 single-DB hang clean and jerks (35/50 lb)\n12/14-cal row\nsubPerform 5 clean and jerks with one arm, and then switch."
+  },
+  "2026-03-24": {
+    "name": "Tue",
+    "category": "For Time",
+    "movements": "50/60-cal bike\nDouble-DB walking lunges (150 ft) (35/50 lb)\n20 wall walks\nsubSplit work as needed; 1 partner works at a time.\nsub2 rounds for time with a partner"
+  },
+  "2026-03-26": {
+    "name": "Thu",
+    "category": "For Time",
+    "timecap": 600,
+    "movements": "21-15-9\nDeadlift 102kg\nHandstand Push-ups"
+  },
+  "2026-03-27": {
+    "name": "Fri",
+    "category": "For Time",
+    "timecap": 900,
+    "movements": "3 Rounds\n400m Run\n21 KB Swings 24kg\n12 Pull-ups"
+  }
+}

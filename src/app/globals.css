@@ -32,3 +32,23 @@ input,
 textarea {
   font-family: inherit;
 }
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #fff;
+  border: 2px solid #ff4500;
+  cursor: pointer;
+  box-shadow: 0 0 6px rgba(255, 69, 0, 0.4);
+}
+
+input[type="range"]::-moz-range-thumb {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #fff;
+  border: 2px solid #ff4500;
+  cursor: pointer;
+}
