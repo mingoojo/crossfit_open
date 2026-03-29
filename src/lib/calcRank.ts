@@ -141,7 +141,6 @@ export function calcRank(athletes : Athlete[], input : FormInput) : RankResult {
       events,
     },
     debugInfo,
-
   }
 }
 
