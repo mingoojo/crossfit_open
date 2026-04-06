@@ -43,5 +43,28 @@
     "category": "For Time",
     "timecap": 1680,
     "movements": "9-15-21-15-9 Reps of:\nBurpee Box Jump-Overs (20/24 in)\nPower Cleans (95/135 lb)\nsubAfter each round: 20/30-cal Air Bike"
+  },
+  "2026-04-06": {
+    "name": "MON",
+    "category": "For Time",
+    "timecap": 1140,
+    "movements": "10 Rounds for time with a partner:\n16/20-cal Row\n20 Single-Arm DB Cleans (35/50 lb)\nsubPartners alternate full rounds."
+  },
+  "2026-04-07": {
+    "name": "TUE",
+    "category": "Strength",
+    "movements": "Every 5:00 for 7 sets:\n3 Push Presses\n2 Push Jerks\n1 Split Jerk\nsubBuild in load each set."
+  },
+  "2026-04-09": {
+    "name": "THU",
+    "category": "For Time",
+    "timecap": 1320,
+    "movements": "800m Run\nHandstand Walk (150 ft)\n30 Russian KB Swings (53/70 lb)\n400m Run\n30 Strict Handstand Push-Ups\n30 Russian KB Swings\n200m Run\n30 Hand-Release Push-Ups\n30 Russian KB Swings"
+  },
+  "2026-04-10": {
+    "name": "FRI",
+    "category": "For Time",
+    "timecap": 1200,
+    "movements": "\"Quatre final 4\"\n1,000m Row\n30 Clean and Jerks (95/135 lb)\n1,000m Row\n30 Strict Handstand Push-Ups"
   }
 }
