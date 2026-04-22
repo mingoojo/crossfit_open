@@ -284,3 +284,12 @@
   .calcBtn { display: none; }
   .hint { display: none; }
 }
+
+.row {
+  display: flex;
+  gap: 12px;
+}
+
+.row .field {
+  flex: 1;
+}

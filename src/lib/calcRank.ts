@@ -145,7 +145,7 @@ export function calcRank(athletes : Athlete[], input : FormInput) : RankResult {
 }
 
 export async function loadAthletes(gender : "M" | "W" = "M") : Promise<Athlete[]> {
-  const file = gender === "W" ? "/data/athletes_w_0319_re.json" : "/data/athletes_m_0319_re.json"
+  const file = gender === "W" ? "/data/athletes__woman_re.json" : "/data/athletes__man_re.json"
   const res = await fetch(file, { cache: "no-store" })
   if (!res.ok) {
     throw new Error(`${file} 로드 실패`)
