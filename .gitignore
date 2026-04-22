@@ -16,6 +16,9 @@
 /venv/
 /docker/
 
+athletes_f_rxd.json
+athletes_m_rxd.json
+
 # production
 /build
 /.vscode

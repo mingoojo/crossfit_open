@@ -1,8 +1,8 @@
 import json
 
 files = [
-    ("athletes__man.json", "athletes__man_re.json"),
-    ("athletes__woman.json", "athletes__woman_re.json"),
+    ("athletes_m_rxd.json", "athletes__man_re.json"),
+    ("athletes_f_rxd.json", "athletes__woman_re.json"),
 ]
 
 for input_file, output_file in files:
