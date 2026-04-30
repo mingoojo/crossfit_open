@@ -1,0 +1,100 @@
+/* src/styles/tokens.css */
+
+:root {
+  /* ─── Brand Colors ─── */
+  --color-primary: #f97316;
+  --color-primary-hover: #ea6c0a;
+  --color-primary-subtle: rgba(249, 115, 22, 0.12);
+  --color-primary-border: rgba(249, 115, 22, 0.3);
+
+  /* ─── Category Colors ─── */
+  --color-crossfit: #f97316;
+  --color-running: #22c55e;
+  --color-hyrox: #6366f1;
+  --color-box-info: #0ea5e9;
+  --color-event: #ec4899;
+  --color-free: #999999;
+
+  /* ─── Backgrounds ─── */
+  --color-bg: #f4f4f4;
+  --color-surface: #ffffff;
+  --color-surface-muted: #fafafa;
+  --color-header: #111111;
+  --color-dark: #0a0a0a;
+
+  /* ─── Borders ─── */
+  --color-border: #e5e5e5;
+  --color-border-muted: #f0f0f0;
+  --color-border-subtle: #f7f7f7;
+
+  /* ─── Text ─── */
+  --color-text: #222222;
+  --color-text-secondary: #666666;
+  --color-text-muted: #999999;
+  --color-text-faint: #bbbbbb;
+  --color-text-on-dark: #cccccc;
+  --color-text-on-dark-muted: #aaaaaa;
+  --color-text-white: #ffffff;
+
+  /* ─── Semantic ─── */
+  --color-danger: #ef4444;
+  --color-success: #22c55e;
+
+  /* ─── Typography ─── */
+  --font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+
+  --font-size-xs: 10px;
+  --font-size-sm: 11px;
+  --font-size-base: 12px;
+  --font-size-md: 13px;
+  --font-size-lg: 14px;
+  --font-size-xl: 16px;
+  --font-size-2xl: 18px;
+  --font-size-3xl: 20px;
+
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+  --font-weight-extrabold: 800;
+  --font-weight-black: 900;
+
+  /* ─── Spacing ─── */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+  --space-12: 48px;
+
+  /* ─── Border Radius ─── */
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 8px;
+  --radius-xl: 12px;
+  --radius-full: 9999px;
+
+  /* ─── Shadows ─── */
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.06);
+  --shadow-md: 0 2px 8px rgba(0, 0, 0, 0.08);
+  --shadow-lg: 0 4px 16px rgba(0, 0, 0, 0.12);
+
+  /* ─── Layout ─── */
+  --max-width: 1200px;
+  --header-height: 50px;
+  --sidebar-width: 260px;
+  --content-padding: 16px;
+
+  /* ─── Z-index ─── */
+  --z-header: 100;
+  --z-modal: 200;
+  --z-toast: 300;
+
+  /* ─── Transitions ─── */
+  --transition-fast: 0.1s ease;
+  --transition-base: 0.15s ease;
+  --transition-slow: 0.25s ease;
+}
