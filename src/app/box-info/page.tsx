@@ -1,63 +1,122 @@
 // src/app/box-info/page.tsx
 "use client"
 
-import { useEffect, useState } from "react"
-import { useRouter } from "next/navigation"
-import api from "@/lib/api"
+import { useEffect, useState, useCallback, useRef } from "react"
+import { GoogleMap, useJsApiLoader } from "@react-google-maps/api"
+import { MarkerClusterer } from "@googlemaps/markerclusterer"
 import Header from "@/components/Header"
-import Footer from "@/components/Footer"
+import api from "@/lib/api"
 import styles from "./boxInfo.module.css"
 
 
-interface Post {
+interface Box {
   id : number
-  category : string
-  title : string
-  viewCount : number
-  commentCount : number
-  username : string
-  createdAt : string
+  name : string
+  address : string
+  city : string
+  country : string
+  countryCode : string
+  latitude : number
+  longitude : number
+  primaryImageUrl : string
+  logoUrl : string
+  slug : string
 }
 
-interface PageResponse {
-  content : Post[]
-  totalPages : number
-  number : number
+const MAP_CENTER = { lat: 36.5, lng: 127.5 } // 한국 중심
+const MAP_OPTIONS = {
+  mapId: "DEMO_MAP_ID",
+  disableDefaultUI: false,
+  zoomControl: true,
+  streetViewControl: false,
+  mapTypeControl: false,
+  fullscreenControl: false,
+  clickableIcons: false,
+  styles: [
+    { featureType: "poi", stylers: [{ visibility: "off" }] },
+  ],
 }
 
-function formatDate(str : string) {
-  const d = new Date(str)
-  const now = new Date()
-  const diff = Math.floor((now.getTime() - d.getTime()) / 1000)
-  if (diff < 60) {
-    return "방금"
-  }
-  if (diff < 3600) {
-    return `${Math.floor(diff / 60)}분 전`
-  }
-  if (diff < 86400) {
-    return `${Math.floor(diff / 3600)}시간 전`
-  }
-  return `${d.getMonth() + 1}.${d.getDate()}`
+const createMarkerElement = (name : string) => {
+  const wrapper = document.createElement("div")
+  wrapper.style.cssText = `
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3px;
+    cursor: pointer;
+    transform: translateY(20px);
+
+  `
+
+  const dot = document.createElement("div")
+  dot.style.cssText = `
+    width: 14px;
+    height: 14px;
+    flex-shrink: 0;
+    background: #f97316;
+    border: 2px solid #fff;
+    border-radius: 50%;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.35);
+    transition: transform 0.15s ease;
+  `
+
+  const label = document.createElement("span")
+  label.textContent = name
+  label.style.cssText = `
+    background: rgba(255,255,255,0.92);
+    color: #111;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 11px;
+    font-weight: 600;
+    white-space: nowrap;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+    pointer-events: none;
+  `
+
+  wrapper.appendChild(dot)
+  wrapper.appendChild(label)
+
+  wrapper.addEventListener("mouseenter", () => {
+    dot.style.transform = "scale(1.6)"
+  })
+  wrapper.addEventListener("mouseleave", () => {
+    dot.style.transform = "scale(1)"
+  })
+
+  return wrapper
 }
+
+
 
 export default function BoxInfoPage() {
-  const router = useRouter()
-  const [page, setPage] = useState(0)
-  const [data, setData] = useState<PageResponse | null>(null)
-  const [loading, setLoading] = useState(false)
+
+  // 1. useJsApiLoader에 libraries 추가
+  const { isLoaded } = useJsApiLoader({
+    googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY!,
+    libraries: ["marker"],
+  })
+
+  const mapRef = useRef<google.maps.Map | null>(null)
+  const clustererRef = useRef<MarkerClusterer | null>(null)
+  const markersRef = useRef<google.maps.marker.AdvancedMarkerElement[]>([])
+  const infoWindowRef = useRef<google.maps.InfoWindow | null>(null)
+
+  const [boxes, setBoxes] = useState<Box[]>([])
+  const [selectedBox, setSelectedBox] = useState<Box | null>(null)
+  const [loading, setLoading] = useState(true)
+  const [total, setTotal] = useState(0)
 
   useEffect(() => {
-    fetchPosts()
-  }, [page])
+    fetchBoxes()
+  }, [])
 
-  const fetchPosts = async () => {
-    setLoading(true)
+  const fetchBoxes = async () => {
     try {
-      const { data } = await api.get<PageResponse>("/api/posts", {
-        params: { page, size: 20, sort: "createdAt,desc", category: "BOX_INFO" },
-      })
-      setData(data)
+      const { data } = await api.get<Box[]>("/api/boxes")
+      setBoxes(data)
+      setTotal(data.length)
     } catch (e) {
       console.error(e)
     } finally {
@@ -65,72 +124,119 @@ export default function BoxInfoPage() {
     }
   }
 
+  const onMapLoad = useCallback((map : google.maps.Map) => {
+    mapRef.current = map
+    infoWindowRef.current = new google.maps.InfoWindow()
+  }, [])
+
+  // 박스 데이터 & 맵 둘 다 준비됐을 때 마커 생성
+  useEffect(() => {
+    if (!mapRef.current || boxes.length === 0) {
+      return
+    }
+
+    clustererRef.current?.clearMarkers()
+    markersRef.current.forEach(m => m.map = null)
+
+    const markers = boxes.map((box) => {
+      const marker = new google.maps.marker.AdvancedMarkerElement({
+        position: { lat: box.latitude, lng: box.longitude },
+        content: createMarkerElement(box.name),
+        title: box.name,
+      })
+
+      marker.addListener("click", () => {
+        setSelectedBox(box)
+        mapRef.current?.panTo({ lat: box.latitude, lng: box.longitude })
+      })
+
+      return marker
+    })
+
+    markersRef.current = markers as any
+    clustererRef.current = new MarkerClusterer({
+      map: mapRef.current,
+      markers: markers as any,
+      renderer: {
+        render: ({ count, position }) => {
+          const div = document.createElement("div")
+          div.style.cssText = `
+          background: #111;
+          color: #fff;
+          border: 2px solid #f97316;
+          border-radius: 50%;
+          width: ${count > 100 ? 48 : count > 10 ? 40 : 32}px;
+          height: ${count > 100 ? 48 : count > 10 ? 40 : 32}px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: ${count > 100 ? 13 : 11}px;
+          font-weight: 800;
+          cursor: pointer;
+          box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+        `
+          div.textContent = count > 999 ? "999+" : String(count)
+
+          return new google.maps.marker.AdvancedMarkerElement({
+            position,
+            content: div,
+          })
+        },
+      },
+    })
+  }, [boxes, mapRef.current])
+
   return (
     <div className={styles.page}>
       <Header />
 
-      {/* 페이지 타이틀 */}
-      <div className={styles.tabBar}>
-        <div style={{ padding: "12px 16px", fontWeight: 700, fontSize: 15, color: "#0ea5e9", borderBottom: "2px solid #0ea5e9" }}>
-          📍 박스 정보
+      <div className={styles.mapWrapper}>
+        {/* 상단 바 */}
+        <div className={styles.topBar}>
+          <span className={styles.topBarTitle}>📍 전세계 CrossFit 박스</span>
+          {!loading && <span className={styles.topBarCount}>{total.toLocaleString()}개</span>}
         </div>
-      </div>
 
-      <div className={styles.container}>
-        {loading ? (
-          <div className={styles.empty}>불러오는 중...</div>
-        ) : data?.content.length === 0 ? (
-          <div className={styles.empty}>아직 등록된 박스 정보가 없어요.</div>
+        {/* 지도 */}
+        {isLoaded ? (
+          <GoogleMap
+            mapContainerClassName={styles.map}
+            center={MAP_CENTER}
+            zoom={7}
+            options={MAP_OPTIONS}
+            onLoad={onMapLoad}
+          />
         ) : (
-          <table className={styles.table}>
-            <thead>
-              <tr>
-                <th className={styles.th} style={{ width: 48 }}>번호</th>
-                <th className={styles.th}>제목</th>
-                <th className={styles.th} style={{ width: 80 }}>작성자</th>
-                <th className={styles.th} style={{ width: 56 }}>조회</th>
-                <th className={styles.th} style={{ width: 72 }}>날짜</th>
-              </tr>
-            </thead>
-            <tbody>
-              {data?.content.map((post) => (
-                <tr
-                  key={post.id}
-                  className={styles.tr}
-                  onClick={() => router.push(`/community/${post.id}`)}
-                >
-                  <td className={styles.tdNum}>{post.id}</td>
-                  <td className={styles.tdTitle}>
-                    {post.title}
-                    {post.commentCount > 0 && (
-                      <span className={styles.commentCount}>[{post.commentCount}]</span>
-                    )}
-                  </td>
-                  <td className={styles.td}>{post.username}</td>
-                  <td className={styles.td} style={{ textAlign: "right" }}>{post.viewCount}</td>
-                  <td className={styles.td} style={{ textAlign: "right", color: "#bbb" }}>{formatDate(post.createdAt)}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+          <div className={styles.mapLoading}>지도 불러오는 중...</div>
         )}
 
-        {data && data.totalPages > 1 && (
-          <div className={styles.pagination}>
-            {Array.from({ length: data.totalPages }, (_, i) => (
-              <button
-                key={i}
-                className={`${styles.pageBtn} ${page === i ? styles.pageBtnActive : ""}`}
-                onClick={() => setPage(i)}
+        {/* 선택된 박스 정보 패널 */}
+        {selectedBox && (
+          <div className={styles.infoPanel}>
+            <button className={styles.infoPanelClose} onClick={() => setSelectedBox(null)}>✕</button>
+            {selectedBox.primaryImageUrl && (
+              <img
+                src={selectedBox.primaryImageUrl}
+                alt={selectedBox.name}
+                className={styles.infoPanelImage}
+              />
+            )}
+            <div className={styles.infoPanelBody}>
+              <h3 className={styles.infoPanelName}>{selectedBox.name}</h3>
+              <p className={styles.infoPanelAddr}>{selectedBox.address}</p>
+              <p className={styles.infoPanelCity}>{selectedBox.city}{selectedBox.country ? `, ${selectedBox.country}` : ""}</p>
+              <a
+                href={`https://www.crossfit.com${selectedBox.slug}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={styles.infoPanelLink}
               >
-                {i + 1}
-              </button>
-            ))}
+                CrossFit 공식 페이지 →
+              </a>
+            </div>
           </div>
         )}
       </div>
-
-      <Footer />
     </div>
   )
 }
