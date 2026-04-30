@@ -1,11 +1,6 @@
+import { AuthResponse } from "@/types/Auth"
 import api from "./api"
 
-interface AuthResponse {
-  accessToken : string
-  refreshToken : string
-  userId : number
-  username : string
-}
 
 export async function signup(username : string, email : string, password : string) {
   const { data } = await api.post<AuthResponse>("/api/auth/signup", { username, email, password })

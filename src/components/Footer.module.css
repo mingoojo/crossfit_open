@@ -1,0 +1,25 @@
+.footer {
+  background: var(--color-header);
+  border-top: 1px solid #1a1a1a;
+  padding: var(--space-5) var(--space-6);
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  margin-top: auto;
+}
+
+.logo {
+  color: var(--color-text-white);
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-extrabold);
+  text-decoration: none;
+}
+
+.logo span {
+  color: var(--color-primary);
+}
+
+.text {
+  color: #555;
+  font-size: var(--font-size-sm);
+}

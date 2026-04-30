@@ -1,0 +1,235 @@
+/* src/app/page.module.css */
+
+.page {
+  min-height: 100vh;
+  background: var(--color-bg);
+  font-size: var(--font-size-md);
+  color: var(--color-text);
+  display: flex;
+  flex-direction: column;
+}
+
+/* ─── Main Layout ─── */
+.main {
+  max-width: var(--max-width);
+  width: 100%;
+  margin: 16px auto;
+  padding: 0 var(--content-padding);
+  flex: 1;
+}
+
+.mainInner {
+  display: flex;
+  gap: var(--space-4);
+  align-items: flex-start;
+}
+
+.left {
+  flex: 1;
+  min-width: 0;
+}
+
+.boardGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-3);
+}
+
+/* ─── Board Section ─── */
+.board {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+
+.boardHeader {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--color-border-muted);
+  background: var(--color-surface-muted);
+}
+
+.boardDot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.boardTitle {
+  font-weight: var(--font-weight-bold);
+  font-size: var(--font-size-md);
+  flex: 1;
+}
+
+.boardMore {
+  color: var(--color-text-muted);
+  font-size: var(--font-size-sm);
+  padding: 0;
+}
+
+.boardMore:hover {
+  color: var(--color-text-secondary);
+}
+
+.boardList {
+  margin: 0;
+  padding: 0;
+}
+
+.boardItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 7px 14px;
+  border-bottom: 1px solid var(--color-border-subtle);
+  cursor: pointer;
+  gap: var(--space-2);
+}
+
+.boardItem:hover {
+  background: var(--color-surface-muted);
+}
+
+.boardItemTitle {
+  color: var(--color-text);
+  font-size: var(--font-size-base);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  flex: 1;
+}
+
+.boardItemMeta {
+  color: var(--color-text-faint);
+  font-size: var(--font-size-sm);
+  flex-shrink: 0;
+}
+
+.boardEmpty {
+  padding: 14px;
+  color: var(--color-text-faint);
+  font-size: var(--font-size-base);
+}
+
+/* ─── Aside ─── */
+.aside {
+  width: var(--sidebar-width);
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.widget {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+
+.widgetHeader {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--color-border-muted);
+  background: var(--color-surface-muted);
+  font-weight: var(--font-weight-bold);
+  font-size: var(--font-size-base);
+  color: var(--color-text);
+}
+
+.widgetDot {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--color-primary);
+  flex-shrink: 0;
+}
+
+.widgetList {
+  margin: 0;
+  padding: 0;
+}
+
+.widgetItem {
+  display: flex;
+  align-items: center;
+  padding: 7px 14px;
+  border-bottom: 1px solid var(--color-border-subtle);
+  cursor: pointer;
+  gap: var(--space-2);
+}
+
+.widgetItem:hover {
+  background: var(--color-surface-muted);
+}
+
+.widgetRank {
+  color: var(--color-primary);
+  font-weight: var(--font-weight-extrabold);
+  font-size: var(--font-size-base);
+  width: 14px;
+  flex-shrink: 0;
+}
+
+.widgetTitle {
+  color: var(--color-text);
+  font-size: var(--font-size-base);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  flex: 1;
+}
+
+.widgetDate {
+  color: var(--color-text-faint);
+  font-size: var(--font-size-xs);
+  flex-shrink: 0;
+}
+
+/* ─── Shortcuts ─── */
+.shortcutGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-2);
+  padding: var(--space-2);
+}
+
+.shortcut {
+  background: var(--color-surface);
+  border: 1px solid;
+  border-radius: var(--radius-sm);
+  padding: 6px 0;
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+}
+
+.shortcut:hover {
+  opacity: 0.8;
+}
+
+/* ─── Section ─── */
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.divider {
+  height: 1px;
+  background: var(--color-border);
+  margin: var(--space-2) 0;
+}
+
+/* BOX, EVENT는 1열 풀width */
+.boardGridSingle {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-3);
+}

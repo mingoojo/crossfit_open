@@ -1,0 +1,145 @@
+
+.header {
+  background: var(--color-header);
+  border-bottom: 2px solid var(--color-primary);
+  position: sticky;
+  top: 0;
+  z-index: var(--z-header);
+}
+
+.headerInner {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 var(--content-padding);
+  height: var(--header-height);
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+}
+
+.logo {
+  color: var(--color-text-white);
+  font-size: var(--font-size-3xl);
+  font-weight: var(--font-weight-black);
+  text-decoration: none;
+  letter-spacing: -0.5px;
+  flex-shrink: 0;
+}
+
+.logo span {
+  color: var(--color-primary);
+}
+
+.nav {
+  display: flex;
+  gap: var(--space-1);
+  flex: 1;
+}
+
+.navLink {
+  color: var(--color-text-on-dark-muted);
+  text-decoration: none;
+  font-size: var(--font-size-base);
+  padding: var(--space-1) var(--space-2);
+  border-radius: var(--radius-sm);
+  white-space: nowrap;
+  transition: color var(--transition-base);
+}
+
+.navLink:hover {
+  color: var(--color-text-white);
+}
+
+.headerRight {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  flex-shrink: 0;
+}
+
+.navUser {
+  color: var(--color-text-on-dark-muted);
+  font-size: var(--font-size-base);
+}
+
+.btnWrite {
+  background: var(--color-primary);
+  color: var(--color-text-white);
+  padding: 5px var(--space-3);
+  border-radius: var(--radius-sm);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-bold);
+  transition: background var(--transition-base);
+}
+
+.btnWrite:hover {
+  background: var(--color-primary-hover);
+}
+
+.btnLogin {
+  background: transparent;
+  border: 1px solid #555;
+  color: var(--color-text-on-dark);
+  padding: 5px var(--space-3);
+  border-radius: var(--radius-sm);
+  font-size: var(--font-size-sm);
+  transition: border-color var(--transition-base);
+}
+
+.btnLogin:hover {
+  border-color: #888;
+}
+
+.btnLogout {
+  background: transparent;
+  border: 1px solid #444;
+  color: #888;
+  padding: 5px var(--space-3);
+  border-radius: var(--radius-sm);
+  font-size: var(--font-size-sm);
+  transition: border-color var(--transition-base);
+}
+
+.btnLogout:hover {
+  border-color: #666;
+}
+
+/* src/components/Header.module.css 에 dropdown 추가 */
+
+/* 기존 스타일들 유지하고 아래 추가 */
+
+.navItem {
+  position: relative;
+}
+
+.navItem:hover .dropdown {
+  display: block;
+}
+
+.dropdown {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background: #1a1a1a;
+  border: 1px solid #2a2a2a;
+  border-radius: var(--radius-md);
+  padding: var(--space-1) 0;
+  min-width: 140px;
+  z-index: 200;
+  box-shadow: var(--shadow-lg);
+}
+
+.dropdownLink {
+  display: block;
+  color: var(--color-text-on-dark-muted);
+  font-size: var(--font-size-base);
+  padding: 8px var(--space-4);
+  white-space: nowrap;
+  transition: color var(--transition-base), background var(--transition-base);
+}
+
+.dropdownLink:hover {
+  color: var(--color-text-white);
+  background: rgba(255, 255, 255, 0.05);
+}

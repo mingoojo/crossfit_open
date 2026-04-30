@@ -1,21 +1,18 @@
-// src/app/community/page.tsx
+// src/app/event/page.tsx
 "use client"
 
 import { useEffect, useState } from "react"
-import { useRouter, useSearchParams } from "next/navigation"
+import { useRouter } from "next/navigation"
 import api from "@/lib/api"
 import Header from "@/components/Header"
 import Footer from "@/components/Footer"
-import styles from "./community.module.css"
-
-type Category = "ALL" | "CROSSFIT" | "RUNNING" | "HYROX" | "FREE"
+import styles from "./event.module.css"
 
 interface Post {
   id : number
   category : string
   title : string
   viewCount : number
-  likeCount : number
   commentCount : number
   username : string
   createdAt : string
@@ -25,21 +22,6 @@ interface PageResponse {
   content : Post[]
   totalPages : number
   number : number
-}
-
-const CATEGORIES : { label : string; value : Category }[] = [
-  { label: "전체", value: "ALL" },
-  { label: "크로스핏", value: "CROSSFIT" },
-  { label: "러닝", value: "RUNNING" },
-  { label: "하이록스", value: "HYROX" },
-  { label: "자유", value: "FREE" },
-]
-
-const CATEGORY_COLOR : Record<string, string> = {
-  CROSSFIT: "#f97316",
-  RUNNING: "#22c55e",
-  HYROX: "#6366f1",
-  FREE: "#999",
 }
 
 function formatDate(str : string) {
@@ -58,29 +40,22 @@ function formatDate(str : string) {
   return `${d.getMonth() + 1}.${d.getDate()}`
 }
 
-export default function CommunityPage() {
+export default function EventPage() {
   const router = useRouter()
-  const searchParams = useSearchParams()
-
-  // URL ?category= 파라미터로 초기값 설정
-  const initCategory = (searchParams.get("category") as Category) ?? "ALL"
-  const [category, setCategory] = useState<Category>(initCategory)
   const [page, setPage] = useState(0)
   const [data, setData] = useState<PageResponse | null>(null)
   const [loading, setLoading] = useState(false)
 
   useEffect(() => {
     fetchPosts()
-  }, [category, page])
+  }, [page])
 
   const fetchPosts = async () => {
     setLoading(true)
     try {
-      const params : Record<string, any> = { page, size: 20, sort: "createdAt,desc" }
-      if (category !== "ALL") {
-        params.category = category
-      }
-      const { data } = await api.get<PageResponse>("/api/posts", { params })
+      const { data } = await api.get<PageResponse>("/api/posts", {
+        params: { page, size: 20, sort: "createdAt,desc", category: "EVENT" },
+      })
       setData(data)
     } catch (e) {
       console.error(e)
@@ -89,39 +64,26 @@ export default function CommunityPage() {
     }
   }
 
-  const handleCategoryChange = (cat : Category) => {
-    setCategory(cat)
-    setPage(0)
-    router.replace(`/community?category=${cat}`)
-  }
-
   return (
     <div className={styles.page}>
       <Header />
 
       <div className={styles.tabBar}>
-        {CATEGORIES.map((c) => (
-          <button
-            key={c.value}
-            className={`${styles.tab} ${category === c.value ? styles.tabActive : ""}`}
-            onClick={() => handleCategoryChange(c.value)}
-          >
-            {c.label}
-          </button>
-        ))}
+        <div style={{ padding: "12px 16px", fontWeight: 700, fontSize: 15, color: "#ec4899", borderBottom: "2px solid #ec4899" }}>
+          🏆 대회·이벤트
+        </div>
       </div>
 
       <div className={styles.container}>
         {loading ? (
           <div className={styles.empty}>불러오는 중...</div>
         ) : data?.content.length === 0 ? (
-          <div className={styles.empty}>게시글이 없습니다.</div>
+          <div className={styles.empty}>아직 등록된 대회·이벤트 정보가 없어요.</div>
         ) : (
           <table className={styles.table}>
             <thead>
               <tr>
                 <th className={styles.th} style={{ width: 48 }}>번호</th>
-                <th className={styles.th} style={{ width: 80 }}>카테고리</th>
                 <th className={styles.th}>제목</th>
                 <th className={styles.th} style={{ width: 80 }}>작성자</th>
                 <th className={styles.th} style={{ width: 56 }}>조회</th>
@@ -136,17 +98,6 @@ export default function CommunityPage() {
                   onClick={() => router.push(`/community/${post.id}`)}
                 >
                   <td className={styles.tdNum}>{post.id}</td>
-                  <td className={styles.td}>
-                    <span
-                      className={styles.badge}
-                      style={{
-                        background: CATEGORY_COLOR[post.category] + "22",
-                        color: CATEGORY_COLOR[post.category],
-                      }}
-                    >
-                      {CATEGORIES.find((c) => c.value === post.category)?.label ?? post.category}
-                    </span>
-                  </td>
                   <td className={styles.tdTitle}>
                     {post.title}
                     {post.commentCount > 0 && (

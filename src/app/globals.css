@@ -1,3 +1,5 @@
+@import "../styles/token.css";
+
 *,
 *::before,
 *::after {
@@ -11,9 +13,10 @@ html {
 }
 
 body {
-  background: #0a0a0a;
-  color: #ddd;
-  font-family: "Barlow", "Noto Sans KR", sans-serif;
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-family);
+  font-size: var(--font-size-md);
   min-height: 100vh;
   -webkit-font-smoothing: antialiased;
 }
@@ -26,38 +29,23 @@ a {
 button {
   cursor: pointer;
   font-family: inherit;
+  border: none;
+  background: none;
+  padding: 0;
 }
 
 input,
-textarea {
+textarea,
+select {
   font-family: inherit;
+  font-size: inherit;
 }
 
-input[type="range"]::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  width: 16px;
-  height: 16px;
-  border-radius: 50%;
-  background: #fff;
-  border: 2px solid #ff4500;
-  cursor: pointer;
-  box-shadow: 0 0 6px rgba(255, 69, 0, 0.4);
+ul, ol {
+  list-style: none;
 }
 
-input[type="range"]::-moz-range-thumb {
-  width: 16px;
-  height: 16px;
-  border-radius: 50%;
-  background: #fff;
-  border: 2px solid #ff4500;
-  cursor: pointer;
-}
-
-@keyframes pulseBar {
-  0%, 100% { border-color: rgba(0, 200, 255, 0.15); background: rgba(0, 200, 255, 0.03); }
-  50%       { border-color: rgba(0, 200, 255, 0.5);  background: rgba(0, 200, 255, 0.08); }
-}
-
-.photoBarPulse {
-  animation: pulseBar 2s ease-in-out infinite;
+img {
+  max-width: 100%;
+  display: block;
 }
