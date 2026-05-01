@@ -233,3 +233,120 @@
   grid-template-columns: 1fr;
   gap: var(--space-3);
 }
+
+
+/* ── Carousel ── */
+.carousel {
+  position: relative;
+  width: 100%;
+  height: 220px;
+  overflow: hidden;
+  transition: background 0.6s ease;
+  margin-bottom: 30px;
+}
+
+.carouselContent {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 50px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 8px;
+}
+
+.carouselTag {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  border: 1px solid;
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 4px;
+  width: fit-content;
+}
+
+.carouselTitle {
+  font-size: 28px;
+  font-weight: 800;
+  color: #fff;
+  margin: 0;
+  line-height: 1.2;
+}
+
+.carouselSub {
+  font-size: 14px;
+  color: #aaa;
+  margin: 0;
+}
+
+.carouselCta {
+  margin-top: 4px;
+  padding: 8px 20px;
+  border: none;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 700;
+  color: #fff;
+  cursor: pointer;
+  width: fit-content;
+  transition: opacity 0.15s;
+}
+
+.carouselCta:hover {
+  opacity: 0.85;
+}
+
+.carouselDots {
+  position: absolute;
+  bottom: 14px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 6px;
+}
+
+.carouselDot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #555;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  transition: background 0.3s;
+}
+
+.carouselDotActive {
+  width: 18px;
+  border-radius: 3px;
+}
+
+.carouselPrev,
+.carouselNext {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(255,255,255,0.08);
+  border: none;
+  color: #fff;
+  font-size: 22px;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.15s;
+}
+
+.carouselPrev { left: 16px; }
+.carouselNext { right: 16px; }
+
+.carouselPrev:hover,
+.carouselNext:hover {
+  background: rgba(255,255,255,0.18);
+}
