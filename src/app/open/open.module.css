@@ -1,0 +1,426 @@
+/* src/app/open/open.module.css */
+
+.page {
+  min-height: 100vh;
+  background: #f4f4f5;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ── 상단 히어로 배너 ── */
+.hero {
+  background: #111;
+  padding: 40px 24px;
+}
+
+.heroInner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.heroLeft {}
+
+.heroTag {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #f97316;
+  border: 1px solid rgba(249,115,22,0.5);
+  padding: 3px 10px;
+  border-radius: 4px;
+  margin-bottom: 12px;
+}
+
+.heroTitle {
+  font-size: 32px;
+  font-weight: 900;
+  color: #fff;
+  margin: 0 0 6px;
+  letter-spacing: -0.5px;
+  line-height: 1.1;
+}
+
+.heroDesc {
+  font-size: 13px;
+  color: #666;
+  margin: 0;
+  line-height: 1.6;
+}
+
+.heroStats {
+  display: flex;
+  gap: 32px;
+  flex-shrink: 0;
+}
+
+.heroStat {
+  text-align: right;
+}
+
+.heroStatNum {
+  font-size: 28px;
+  font-weight: 800;
+  color: #f97316;
+  line-height: 1;
+}
+
+.heroStatLabel {
+  font-size: 11px;
+  color: #555;
+  margin-top: 4px;
+  letter-spacing: 0.05em;
+}
+
+/* ── 2열 레이아웃 ── */
+.layout {
+  display: flex;
+  flex: 1;
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+  padding: 28px 24px 40px;
+  gap: 24px;
+  align-items: flex-start;
+}
+
+/* ── 왼쪽 폼 패널 ── */
+.formPanel {
+  width: 360px;
+  flex-shrink: 0;
+  background: #fff;
+  border-radius: 12px;
+  border: 1px solid #e4e4e7;
+  overflow: hidden;
+  position: sticky;
+  top: 80px;
+}
+
+.formPanelHeader {
+  padding: 20px 20px 16px;
+  border-bottom: 1px solid #f0f0f0;
+  background: #fafafa;
+}
+
+.formPanelTitle {
+  font-size: 14px;
+  font-weight: 700;
+  color: #111;
+  margin: 0 0 2px;
+}
+
+.formPanelSub {
+  font-size: 12px;
+  color: #999;
+  margin: 0;
+}
+
+.formScroll {
+  padding: 20px;
+  max-height: calc(100vh - 220px);
+  overflow-y: auto;
+}
+
+.errorMsg {
+  color: #ef4444;
+  font-size: 12px;
+  margin-top: 8px;
+  padding: 8px 12px;
+  background: #fef2f2;
+  border-radius: 6px;
+  border: 1px solid #fee2e2;
+}
+
+/* ── 오른쪽 프리뷰 패널 ── */
+.previewPanel {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* 상단 컨트롤 바 */
+.previewControls {
+  background: #fff;
+  border: 1px solid #e4e4e7;
+  border-radius: 10px;
+  padding: 14px 18px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.controlLabel {
+  font-size: 11px;
+  font-weight: 700;
+  color: #999;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-right: 8px;
+}
+
+.variantToggle {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.variantBtn {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 6px 12px;
+  border-radius: 6px;
+  border: 1px solid #e4e4e7;
+  background: #fff;
+  font-size: 12px;
+  font-weight: 600;
+  color: #888;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.variantBtn:hover {
+  border-color: var(--v-color);
+  color: var(--v-color);
+}
+
+.variantBtnActive {
+  background: var(--v-color);
+  border-color: var(--v-color);
+  color: #fff !important;
+}
+
+.variantDot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: currentColor;
+  flex-shrink: 0;
+}
+
+.saveBtn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 18px;
+  background: #111;
+  color: #fff;
+  border: none;
+  border-radius: 7px;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: opacity 0.15s, transform 0.1s;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.saveBtn:hover {
+  opacity: 0.8;
+  transform: translateY(-1px);
+}
+
+.saveBtnLoading {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* 사진 업로드 바 */
+.photoBar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: #fff;
+  border: 1.5px dashed #d4d4d8;
+  border-radius: 8px;
+  padding: 12px 16px;
+  cursor: pointer;
+  font-size: 13px;
+  color: #999;
+  transition: all 0.15s;
+}
+
+.photoBar:hover {
+  border-color: #f97316;
+  color: #f97316;
+}
+
+.photoThumb {
+  width: 32px;
+  height: 32px;
+  border-radius: 4px;
+  background-size: cover;
+  background-position: center;
+  flex-shrink: 0;
+}
+
+/* 카드 래퍼 */
+.cardWrapper {
+  background: #27272a;
+  border-radius: 12px;
+  overflow: hidden;
+  min-height: 480px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 28px;
+}
+
+.emptyState {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  height: 400px;
+  color: #52525b;
+  font-size: 14px;
+  text-align: center;
+  line-height: 1.7;
+}
+
+.emptyIcon {
+  font-size: 44px;
+  filter: grayscale(1);
+  opacity: 0.5;
+}
+
+/* ════════════════════════════════
+   모바일
+════════════════════════════════ */
+.mobileTabs  { display: none; }
+.mobileContent { display: none; }
+.mobileFooter  { display: none; }
+
+@media (max-width: 768px) {
+  .hero {
+    padding: 28px 16px;
+  }
+
+  .heroStats {
+    display: none;
+  }
+
+  .heroTitle {
+    font-size: 22px;
+  }
+
+  .layout {
+    display: none;
+  }
+
+  .mobileTabs {
+    display: flex;
+    background: #fff;
+    border-bottom: 1px solid #e4e4e7;
+    position: sticky;
+    top: 56px;
+    z-index: 10;
+  }
+
+  .mobileTab {
+    flex: 1;
+    padding: 14px;
+    border: none;
+    background: none;
+    font-size: 14px;
+    font-weight: 600;
+    color: #aaa;
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    transition: all 0.15s;
+  }
+
+  .mobileTabActive {
+    color: #f97316;
+    border-bottom-color: #f97316;
+  }
+
+  .mobileContent {
+    display: block;
+    flex: 1;
+  }
+
+  .mobileForm {
+    padding: 16px;
+    background: #fff;
+  }
+
+  .mobilePreview {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 12px 16px;
+  }
+
+  .mobileVariantToggle {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+
+  .mobileCardWrapper {
+    background: #27272a;
+    border-radius: 10px;
+    overflow: hidden;
+    min-height: 300px;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 16px;
+  }
+
+  .mobileFooter {
+    display: block;
+    position: sticky;
+    bottom: 0;
+    padding: 12px 16px;
+    background: #fff;
+    border-top: 1px solid #e4e4e7;
+  }
+
+  .mobileCalcBtn {
+    width: 100%;
+    padding: 14px;
+    background: linear-gradient(135deg, #f97316, #ea580c);
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: opacity 0.15s;
+  }
+
+  .mobileCalcBtn:disabled {
+    opacity: 0.35;
+    cursor: not-allowed;
+  }
+
+  .mobileSaveBtn {
+    width: 100%;
+    padding: 14px;
+    background: #111;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+  }
+
+  .mobileSaveBtn:disabled {
+    opacity: 0.35;
+    cursor: not-allowed;
+  }
+}

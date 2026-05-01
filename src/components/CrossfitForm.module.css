@@ -1,0 +1,182 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* ── 섹션 ── */
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.sectionTitle {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: #f97316;
+  text-transform: uppercase;
+  padding-bottom: 8px;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+/* ── 행 ── */
+.row {
+  display: flex;
+  gap: 10px;
+}
+
+/* ── 필드 ── */
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  flex: 1;
+  min-width: 0;
+}
+
+.label {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  color: #71717a;
+  text-transform: uppercase;
+}
+
+.labelSub {
+  font-weight: 400;
+  color: #a1a1aa;
+  text-transform: none;
+  letter-spacing: 0;
+}
+
+/* ── 인풋 ── */
+.input {
+  width: 100%;
+  background: #fafafa;
+  border: 1px solid #e4e4e7;
+  border-radius: 7px;
+  padding: 9px 12px;
+  color: #111;
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+.input:focus {
+  border-color: #f97316;
+  box-shadow: 0 0 0 3px rgba(249,115,22,0.1);
+  background: #fff;
+}
+
+.input::placeholder {
+  color: #c4c4c4;
+}
+
+.input[type="number"]::-webkit-inner-spin-button,
+.input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+}
+.input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+/* ── 이벤트 메타 ── */
+.eventMeta {
+  font-size: 12px;
+  color: #a1a1aa;
+  margin-top: -4px;
+  line-height: 1.4;
+}
+
+/* ── WOD 상태 ── */
+.wodStatus {
+  margin-top: -2px;
+}
+
+.statusDone {
+  font-size: 11px;
+  font-weight: 600;
+  color: #f97316;
+}
+
+.statusPartial {
+  font-size: 11px;
+  color: #a1a1aa;
+}
+
+.statusEmpty {
+  font-size: 11px;
+  color: #d4d4d8;
+}
+
+/* ── 성별 토글 ── */
+.genderToggle {
+  display: flex;
+  gap: 8px;
+}
+
+.genderBtn {
+  flex: 1;
+  padding: 10px;
+  border-radius: 7px;
+  border: 1px solid #e4e4e7;
+  background: #fafafa;
+  color: #a1a1aa;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.genderBtn:hover {
+  border-color: #f97316;
+  color: #f97316;
+  background: #fff7ed;
+}
+
+.genderBtnActive {
+  border-color: #f97316 !important;
+  background: #fff7ed !important;
+  color: #f97316 !important;
+}
+
+/* ── 계산 버튼 ── */
+.calcBtn {
+  width: 100%;
+  padding: 13px;
+  background: linear-gradient(135deg, #f97316, #ea580c);
+  border: none;
+  border-radius: 8px;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  cursor: pointer;
+  transition: opacity 0.15s, transform 0.1s;
+  margin-top: 4px;
+}
+
+.calcBtn:hover:not(:disabled) {
+  opacity: 0.88;
+  transform: translateY(-1px);
+}
+
+.calcBtn:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.calcBtnLoading {
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+.hint {
+  text-align: center;
+  font-size: 11px;
+  color: #c4c4c4;
+  margin-top: -4px;
+}
