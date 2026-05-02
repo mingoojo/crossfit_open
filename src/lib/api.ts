@@ -1,8 +1,15 @@
 import axios from "axios"
 
+let url = "";
+
+if (process.env.NEXT_PUBLIC_ENV === "dev") {
+  url = process.env.NEXT_PUBLIC_DEV_URL || ""
+} else {
+  url = process.env.NEXT_PUBLIC_LOCAL_URL || ""
+}
+
 const api = axios.create({
-  // baseURL: process.env.NEXT_PUBLIC_API_URL,
-  baseURL: "",
+  baseURL: url,
   headers: { "Content-Type": "application/json" },
 })
 
